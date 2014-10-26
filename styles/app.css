@@ -2354,6 +2354,7 @@ raml-console article#raml-console a:visited,
   color: #086c96;
   text-decoration: none;
   outline: 0;
+  cursor: pointer;
 }
 raml-console article#raml-console a:hover,
 #raml-console-loader a:hover,
