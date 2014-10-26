@@ -1,0 +1,46 @@
+#%RAML 0.8
+title: Feedback API
+version: v1
+#baseUri: http://restaurant.app.foodit.com/api/{version}
+baseUri: http://mocksvc.mulesoft.com/mocks/eaea5ba5-52bb-4feb-ae4b-e2941036d2c5/api/{version}
+mediaType: application/json
+/feeback/order/{orderId}/orderFeedback/{orderFeedbackId}:
+    displayName: Order Feedback
+    uriParameters:      
+      orderId:
+        displayName: The Id of the original Order
+        type: number
+      orderFeedbackId:
+        displayName: The ID of the ```OrderFeedback``` entity
+        type: number
+    get:
+      description: A single OrderFeedback record with the collection of corresponding MealFeedbacks that make up the order.
+      responses:
+        200:
+          description: Successful retrieve the corresponding ```OrderFeedback```
+          body:
+            application/json:
+              schema: !include OrderFeedback.schema.json
+              example: !include OrderFeedback.example.json
+        403:
+          description: The ```OrderFeedback``` cannot be loaded up. Normally means that the OrderFeedback ID does not match the Order ID.
+    put:
+      description: Update the ```OrderFeedback```. The only properties that can be updated are the ```comment``` and the ```status```.
+      body:
+       application/json:
+        schema: !include OrderFeedback.schema.json
+      responses:
+        200:
+          description: The OrderFeedback update request has been accepted.
+        422:
+          description: The supplied OrderFeedback in the body does not match the URI.
+    /mealfeedback:
+      displayName: Meal Feedback
+      put:
+        description: Update the Comment and Rating of the ```MealFeedback```
+        responses:
+          200:
+            description: Update the rating and comment of a ```MealFeedback```
+            body:
+              application/json:
+                schema: !include MealFeedback.schema.json
